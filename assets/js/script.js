@@ -8,7 +8,7 @@ let questionEl = document.querySelector("#question");
 let questionCount = 0;
 
 const answerDisplayEl = document.querySelector("#answerDisplay");
-const finalEl = document.querySelector("#final");
+const endEl = document.querySelector("#end");
 let initialsInput = document.querySelector("#initials");
 const highscoresEl = document.querySelector("#highscores");
 let scoreListEl = document.querySelector("#score-list");
@@ -33,7 +33,7 @@ const questions = [
     {
         question: "The condition in an if / else statement is enclosed within ____.",
         answers: ["A) quotes", "B) curly brackets", "C) parentheses", "D) square brackets"],
-        correctAnswer: "1"
+        correctAnswer: "2"
     },
     {
         question: "Arrays in Javascript can be used to store ____.",
@@ -61,13 +61,14 @@ var setTime = function() {
         if (secondsLeft === 0 || questionCount === questions.length) {
             clearInterval(timerInterval);
             questionsEl.style.display = "none";
-            finalEl.style.display = "block";
+            endEl.style.display = "block";
             scoreEl.textContent = secondsLeft;
         }
     }, 1000);
 };
 
-var startQuiz = function() {
+var startQuiz = function(event) {
+    event.preventDefault();
     introEl.style.display = "none";
     questionsEl.style.display = "block";
     questionCount = 0;
@@ -110,15 +111,14 @@ var checkAnswer = function(event) {
     setQuestion(questionCount);
 };
 
-var addScore = function(event) {
+var addScore = function(event,) {
     event.preventDefault();
 
-    finalEl.style.display = "none";
+    endEl.style.display = "none";
     highscoresEl.style.display = "block";
 
     let init = initialsInput.value.toUpperCase();
     scoreList.push({ initials: init, score: secondsLeft });
-
 
     scoreList = scoreList.sort((a, b) => {
         if (a.score < b.score) {
@@ -146,9 +146,10 @@ var storeScores = function() {
 var displayScores = function() {
     let storedScoreList = JSON.parse(localStorage.getItem("scoreList"));
 
-    if (storedScoreList !== null) {
-        scoreList = storedScoreList;
+    if (!storedScoreList) {
+        return false;
     }
+
 };
 
 var clearScores = function() {

@@ -32,11 +32,16 @@ main {
 }
 
 #questions,
-#final,
+#end,
 #highscores,
 #answerDisplay {
     display: none;  
-  } 
+}
+
+.answer {
+    font-size: 18px;
+    color:#7851A9;
+}
 
 ul.nobullets {
 list-style-type: none;
