@@ -1,4 +1,3 @@
-
 let timeEl = document.querySelector("p.time");
 let secondsLeft = 60;
 let scoreEl = document.querySelector("#score");
@@ -8,7 +7,7 @@ let questionEl = document.querySelector("#question");
 let questionCount = 0;
 
 const answerDisplayEl = document.querySelector("#answerDisplay");
-const endEl = document.querySelector("#end");
+const finalEl = document.querySelector("#final");
 let initialsInput = document.querySelector("#initials");
 const highscoresEl = document.querySelector("#highscores");
 let scoreListEl = document.querySelector("#score-list");
@@ -61,14 +60,13 @@ var setTime = function() {
         if (secondsLeft === 0 || questionCount === questions.length) {
             clearInterval(timerInterval);
             questionsEl.style.display = "none";
-            endEl.style.display = "block";
+            finalEl.style.display = "block";
             scoreEl.textContent = secondsLeft;
         }
     }, 1000);
 };
 
-var startQuiz = function(event) {
-    event.preventDefault();
+var startQuiz = function() {
     introEl.style.display = "none";
     questionsEl.style.display = "block";
     questionCount = 0;
@@ -99,10 +97,10 @@ var checkAnswer = function(event) {
     }, 1000);
 
     if (questions[questionCount].correctAnswer === event.target.value) {
-        p.textContent = "Correct!";
+        p.textContent = "Correct";
     } else if (questions[questionCount].correctAnswer !== event.target.value) {
         secondsLeft = secondsLeft - 10;
-        p.textContent = "Wrong!";
+        p.textContent = "Wrong";
     }
 
     if (questionCount < questions.length) {
@@ -111,14 +109,15 @@ var checkAnswer = function(event) {
     setQuestion(questionCount);
 };
 
-var addScore = function(event,) {
+var addScore = function(event) {
     event.preventDefault();
 
-    endEl.style.display = "none";
+    finalEl.style.display = "none";
     highscoresEl.style.display = "block";
 
     let init = initialsInput.value.toUpperCase();
     scoreList.push({ initials: init, score: secondsLeft });
+
 
     scoreList = scoreList.sort((a, b) => {
         if (a.score < b.score) {
@@ -127,7 +126,7 @@ var addScore = function(event,) {
           return -1;
         }
       });
-    
+
     scoreListEl.innerHTML="";
     for (let i = 0; i < scoreList.length; i++) {
         let li = document.createElement("li");
@@ -147,14 +146,13 @@ var displayScores = function() {
     let storedScoreList = JSON.parse(localStorage.getItem("scoreList"));
 
     if (!storedScoreList) {
-        return false;
+        scoreList = storedScoreList;
     }
-
 };
 
 var clearScores = function() {
-    localStorage.clear();
     scoreListEl.innerHTML="";
+    localStorage.clear();
 };
 
 startBtn.addEventListener("click", startQuiz);

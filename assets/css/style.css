@@ -32,15 +32,16 @@ main {
 }
 
 #questions,
-#end,
+#final,
 #highscores,
 #answerDisplay {
     display: none;  
-}
+} 
 
-.answer {
+.answers {
+    color: #7851A9;
     font-size: 18px;
-    color:#7851A9;
+    text-align: center;
 }
 
 ul.nobullets {
@@ -61,4 +62,3 @@ list-style-type: none;
     border:  #7851A9;
     color: white;
 }
-
