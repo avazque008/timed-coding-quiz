@@ -32,8 +32,4 @@ GIVEN I am taking a code quiz
 <img width="1068" alt="Screenshot3" src="https://user-images.githubusercontent.com/97632228/160331301-2b4ea138-53eb-4d6b-8383-96f8b34ea410.PNG">
 
 ## Website URL
-
-
-
-
-
+https://avazque008.github.io/timed-coding-quiz/
